@@ -6,14 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "json-server": "npx json-server",
-    "json-server-with-sample": "npx json-server db.json",
+    "json-server-with-sample": "npx json-server --watch db.json",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.3",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vuejs-datepicker": "^1.6.2",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
