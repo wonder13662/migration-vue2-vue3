@@ -11,17 +11,22 @@
 <script>
 export default {
   props: {
-    event: Object,
+    event: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 };
 </script>
 
 <style scoped>
 .event-card {
-  padding: 20px;
-  margin-bottom: 24px;
-  transition: all 0.2s linear;
+  width: 13em;
+  margin: 1em auto 1em auto;
+  padding: 1em;
+  border: solid 1px #2c3e50;
   cursor: pointer;
+  transition: all 0.2s linear;
 }
 .event-card:hover {
   transform: scale(1.01);
@@ -30,7 +35,11 @@ export default {
 .event-card > .title {
   margin: 0;
 }
-
+.event-card h4 {
+  font-size: 1.4em;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+}
 .event-link {
   color: black;
   text-decoration: none;
