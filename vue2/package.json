@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "json-server": "npx json-server",
     "json-server-with-sample": "npx json-server --watch db.json",
-    "start": "node server.js & vue-cli-service serve",
+    "start": "nodemon server.js & vue-cli-service serve",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
