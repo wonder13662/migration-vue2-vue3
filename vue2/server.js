@@ -28,6 +28,30 @@ app.get('/dashboard', verifyToken, (req, res) => {
   })
 })
 
+app.post('/event', verifyToken, async (req, res) => {
+  const event = req.body;
+
+  try {
+    const eventDB = await fs.readFileSync('./db/events.json')
+    const eventInfo = JSON.parse(eventDB)
+    eventInfo.events.push(event)
+
+    const data = JSON.stringify(eventInfo, null, 2)
+
+    await fs.writeFile('./db/events.json', data, error => {
+      if (error) {
+        console.log(error)
+        res.sendStatus(500)
+      } else {
+        res.json(event)
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+})
+
 app.get('/events', verifyToken, (req, res) => {
   const { _limit, _page } = req.query;
   jwt.verify(req.token, 'the_secret_key', err => {
@@ -39,9 +63,11 @@ app.get('/events', verifyToken, (req, res) => {
       const eventInfo = JSON.parse(eventDB)
       const begins = _limit * _page
       const ends = _limit * (_page + 1) + 1
+      const totalCount = eventInfo.events.length
 
       res.json({
-        events: eventInfo.events.slice(begins, ends)
+        events: eventInfo.events.slice(begins, ends),
+        totalCount,
       })
     }
   })
