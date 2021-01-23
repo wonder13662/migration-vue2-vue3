@@ -18,26 +18,18 @@ export default {
     },
   },
   actions: {
-    register({ commit }, credentials) {
-      return services.user.postRegister(credentials).then(({ data }) => {
-        commit('SET_USER_DATA', data);
-      });
+    async register({ commit }, credentials) {
+      const response = await services.user.postRegister(credentials);
+      const { data } = response;
+      commit('SET_USER_DATA', data);
     },
     async login({ commit }, credentials) {
-      try {
-        const response = await services.user.postLogin(credentials);
-        const { data } = response;
-        commit('SET_USER_DATA', data);
-      } catch (error) {
-        console.log(error);
-      }
+      const response = await services.user.postLogin(credentials);
+      const { data } = response;
+      commit('SET_USER_DATA', data);
     },
     async logout({ commit }) {
-      try {
-        commit('CLEAR_USER_DATA');
-      } catch (error) {
-        console.log(error);
-      }
+      commit('CLEAR_USER_DATA');
     },
     setUser({ commit }, userData) {
       commit('SET_USER_DATA', userData);
