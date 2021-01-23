@@ -6,7 +6,7 @@ export default {
     return apiClient.get(`/events/${id}`);
   },
   postEvent(apiClient, event) {
-    return apiClient.post('/events', event);
+    return apiClient.post('/event', event);
   },
   ping(apiClient) {
     console.log('apiClient:', apiClient);

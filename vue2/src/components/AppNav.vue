@@ -6,6 +6,12 @@
     <router-link v-if="loggedIn" to="/dashboard">
       Dashboard
     </router-link>
+    <router-link v-if="loggedIn" to="/event-list">
+      EventList
+    </router-link>
+    <router-link v-if="loggedIn" to="/event-create">
+      EventCreate
+    </router-link>
     <router-link v-if="!loggedIn" to="/login" class="button">
       Login
     </router-link>
