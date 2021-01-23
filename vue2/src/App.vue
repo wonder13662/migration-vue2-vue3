@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <NavBar/> -->
     <AppNav />
     <NotificationContainer/>
     <router-view class="page" :key="$route.fullPath"/>
@@ -9,7 +8,6 @@
 
 <script>
 import AppNav from '@/components/AppNav.vue';
-// import NavBar from '@/components/NavBar.vue';
 import NotificationContainer from '@/components/NotificationContainer.vue';
 
 export default {

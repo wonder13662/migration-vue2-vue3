@@ -42,7 +42,7 @@ export default {
 
       try {
         await this.$store.dispatch('user/login', credentials);
-        await this.$router.push({ name: 'dashboard' });
+        await this.$router.push({ name: 'event-list' });
       } catch (error) {
         this.error = error.response.data.error;
       }

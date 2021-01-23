@@ -3,9 +3,6 @@
     <router-link to="/">
       Home
     </router-link>
-    <router-link v-if="loggedIn" to="/dashboard">
-      Dashboard
-    </router-link>
     <router-link v-if="loggedIn" to="/event-list">
       EventList
     </router-link>

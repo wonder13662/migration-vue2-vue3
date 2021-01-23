@@ -36,7 +36,6 @@ export default {
     };
   },
   created() {
-    console.log('EventList / created');
     this.$store.dispatch('event/fetchEvents', {
       perPage: this.perPage,
       page: this.page,

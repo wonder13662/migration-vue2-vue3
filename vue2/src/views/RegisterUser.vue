@@ -51,7 +51,7 @@ export default {
 
       try {
         await this.$store.dispatch('user/register', payload);
-        await this.$router.push({ name: 'dashboard' });
+        await this.$router.push({ name: 'event-list' });
       } catch (error) {
         console.log(error);
         this.errors = error.response.data.errors;
