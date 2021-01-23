@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user && user.user">
     <h1>Events for {{ user.user.name }}</h1>
     <EventCard v-for="event in event.events" :key="event.id" :event="event"/>
     <template v-if="page != 1">
