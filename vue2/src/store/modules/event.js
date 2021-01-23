@@ -1,4 +1,4 @@
-import EventService from '@/services/EventService';
+import services from '@/services';
 
 export default {
   namespaced: true,
@@ -25,7 +25,7 @@ export default {
     createEvent({ commit, dispatch }, event) {
       // TODO rootState 예제 만들기
       // TODO dispatch('moduleName/actionToCall', null, { root:true }) 예제 만들기
-      return EventService.postEvent(event)
+      return services.event.postEvent(event)
         .then(() => {
           commit('ADD_EVENT', event);
           const notification = {
@@ -45,8 +45,9 @@ export default {
     },
     fetchEvents({ commit, dispatch }, { perPage, page }) {
       // TODO async/await 구문으로 바꾸기
-      EventService.getEvents(perPage, page)
+      services.event.getEvents(perPage, page)
         .then((response) => {
+          console.log('fetchEvents / response.data:', response.data);
           commit('SET_EVENTS', response.data);
           commit('SET_EVENT_TOTAL', response.headers['x-total-count']);
         })
@@ -64,7 +65,7 @@ export default {
         commit('SET_EVENT', event);
       } else {
         // TODO async/await 구문으로 바꾸기
-        EventService.getEvent(id)
+        services.event.getEvent(id)
           .then((response) => {
             commit('SET_EVENT', response.data);
           })

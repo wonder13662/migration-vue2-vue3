@@ -37,7 +37,7 @@ export default {
     login() {
       // TODO async/await으로 바꾸기
       this.$store
-        .dispatch('login', {
+        .dispatch('user/login', {
           email: this.email,
           password: this.password,
         })

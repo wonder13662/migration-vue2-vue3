@@ -16,18 +16,19 @@
 </template>
 
 <script>
-import helper from '@/store/helper';
+import { mapGetters } from 'vuex';
 
-const { authComputed } = helper; // TODO import { authComputed } from '@/store/helper'; 가 실패하는 이유는?
 export default {
   computed: {
-    ...authComputed,
+    ...mapGetters({
+      loggedIn: 'user/loggedIn',
+    }),
   },
   methods: {
     logout() {
       // TODO async/await으로 바꾸기
       this.$store
-        .dispatch('logout')
+        .dispatch('user/logout')
         .then(() => {
           this.$router.push('/login');
         })

@@ -13,13 +13,15 @@ new Vue({
     const userString = localStorage.getItem('user');
     if (userString) {
       const userData = JSON.parse(userString);
-      this.$store.commit('SET_USER_DATA', userData); // TODO mutation은 action안에서만 다루어야 함.
+      this.$store.dispatch('user/setUser', userData);
     }
+
+    // 인증 에러일 경우, localStorage에 저장된 Auth token을 삭제한다. Auth token을 탈취해서 악용하는 경우를 막기위한 조치.
     axios.interceptors.response.use(
       (response) => response,
       (error) => {
         if (error.response.status === 401) {
-          this.$store.dispatch('logout');
+          this.$store.dispatch('user/logout');
         }
         return Promise.reject(error);
       },

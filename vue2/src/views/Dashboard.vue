@@ -11,8 +11,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import EventCard from '@/components/EventCard.vue';
+import services from '@/services';
+
 // TODO Pagination 기능을 이곳으로 옮겨야 함
 export default {
   components: { EventCard },
@@ -23,10 +24,11 @@ export default {
     };
   },
   created() {
-    // TODO eventService로 바꿀 것!
-    axios.get('//localhost:3000/dashboard').then(({ data }) => {
-      this.events = data.events.events;
+    services.event.getEvents(3, 1).then(({ data }) => {
+      this.events = data.events;
       this.isLoading = false;
+    }).catch((error) => {
+      console.log(error);
     });
   },
 };
