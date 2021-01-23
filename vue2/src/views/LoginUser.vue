@@ -34,19 +34,18 @@ export default {
     };
   },
   methods: {
-    login() {
-      // TODO async/await으로 바꾸기
-      this.$store
-        .dispatch('login', {
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push({ name: 'dashboard' });
-        })
-        .catch((error) => {
-          this.error = error.response.data.error;
-        });
+    async login() {
+      const credentials = {
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.$store.dispatch('user/login', credentials);
+        await this.$router.push({ name: 'dashboard' });
+      } catch (error) {
+        this.error = error.response.data.error;
+      }
     },
   },
 };

@@ -20,14 +20,6 @@ const router = new VueRouter({
       component: Home,
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
       path: '/register',
       name: 'register',
       component: RegisterUser,
@@ -38,19 +30,36 @@ const router = new VueRouter({
       component: LoginUser,
     },
     {
-      path: '/',
-      name: 'event-list',
-      component: EventList,
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
-      path: '/',
+      path: '/event-list',
+      name: 'event-list',
+      component: EventList,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/event-create',
       name: 'event-create',
       component: EventCreate,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/event/:id',
       name: 'event-show',
       component: EventShow,
+      meta: {
+        requiresAuth: true,
+      },
       props: true,
     },
   ],

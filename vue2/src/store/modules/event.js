@@ -1,4 +1,4 @@
-import EventService from '@/services/EventService';
+import services from '@/services';
 
 export default {
   namespaced: true,
@@ -25,7 +25,7 @@ export default {
     createEvent({ commit, dispatch }, event) {
       // TODO rootState 예제 만들기
       // TODO dispatch('moduleName/actionToCall', null, { root:true }) 예제 만들기
-      return EventService.postEvent(event)
+      return services.event.postEvent(event)
         .then(() => {
           commit('ADD_EVENT', event);
           const notification = {
@@ -43,20 +43,19 @@ export default {
           throw error;
         });
     },
-    fetchEvents({ commit, dispatch }, { perPage, page }) {
-      // TODO async/await 구문으로 바꾸기
-      EventService.getEvents(perPage, page)
-        .then((response) => {
-          commit('SET_EVENTS', response.data);
-          commit('SET_EVENT_TOTAL', response.headers['x-total-count']);
-        })
-        .catch((error) => {
-          const notification = {
-            type: 'error',
-            message: `There was a problem fetching events: ${error.message}`,
-          };
-          dispatch('notification/add', notification, { root: true });
-        });
+    async fetchEvents({ commit, dispatch }, { perPage, page }) {
+      try {
+        const response = await services.event.getEvents(perPage, page);
+        const { data: { events, totalCount } } = response;
+        commit('SET_EVENTS', events);
+        commit('SET_EVENT_TOTAL', totalCount);
+      } catch (error) {
+        const notification = {
+          type: 'error',
+          message: `There was a problem fetching events: ${error.message}`,
+        };
+        dispatch('notification/add', notification, { root: true });
+      }
     },
     fetchEvent({ commit, getters, dispatch }, id) {
       const event = getters.getEventById(id);
@@ -64,7 +63,7 @@ export default {
         commit('SET_EVENT', event);
       } else {
         // TODO async/await 구문으로 바꾸기
-        EventService.getEvent(id)
+        services.event.getEvent(id)
           .then((response) => {
             commit('SET_EVENT', response.data);
           })

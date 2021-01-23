@@ -42,19 +42,20 @@ export default {
     };
   },
   methods: {
-    register() {
-      this.$store
-        .dispatch('register', {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push({ name: 'dashboard' });
-        })
-        .catch((error) => {
-          this.errors = error.response.data.errors;
-        });
+    async register() {
+      const payload = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.$store.dispatch('user/register', payload);
+        await this.$router.push({ name: 'dashboard' });
+      } catch (error) {
+        console.log(error);
+        this.errors = error.response.data.errors;
+      }
     },
   },
 };

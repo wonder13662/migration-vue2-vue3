@@ -28,6 +28,51 @@ app.get('/dashboard', verifyToken, (req, res) => {
   })
 })
 
+app.post('/event', verifyToken, async (req, res) => {
+  const event = req.body;
+
+  try {
+    const eventDB = await fs.readFileSync('./db/events.json')
+    const eventInfo = JSON.parse(eventDB)
+    eventInfo.events.push(event)
+
+    const data = JSON.stringify(eventInfo, null, 2)
+
+    await fs.writeFile('./db/events.json', data, error => {
+      if (error) {
+        console.log(error)
+        res.sendStatus(500)
+      } else {
+        res.json(event)
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+})
+
+app.get('/events', verifyToken, (req, res) => {
+  const { _limit, _page } = req.query;
+  jwt.verify(req.token, 'the_secret_key', err => {
+    if (err) {
+      console.log('server / events / err:', err);
+      res.sendStatus(401)
+    } else {
+      const eventDB = fs.readFileSync('./db/events.json')
+      const eventInfo = JSON.parse(eventDB)
+      const begins = _limit * _page
+      const ends = _limit * (_page + 1) + 1
+      const totalCount = eventInfo.events.length
+
+      res.json({
+        events: eventInfo.events.slice(begins, ends),
+        totalCount,
+      })
+    }
+  })
+})
+
 app.post('/register', (req, res) => {
   if (req.body) {
     const user = {
@@ -73,6 +118,7 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
   const userDB = fs.readFileSync('./db/user.json')
   const userInfo = JSON.parse(userDB)
+
   if (
     req.body &&
     req.body.email === userInfo.email &&
@@ -80,6 +126,7 @@ app.post('/login', (req, res) => {
   ) {
     const token = jwt.sign({ userInfo }, 'the_secret_key')
     // In a production app, you'll want the secret key to be an environment variable
+    console.log('3-token:', token)
     res.json({
       token,
       email: userInfo.email,
@@ -93,7 +140,6 @@ app.post('/login', (req, res) => {
 // MIDDLEWARE
 function verifyToken (req, res, next) {
   const bearerHeader = req.headers['authorization']
-
   if (typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ')
     const bearerToken = bearer[1]

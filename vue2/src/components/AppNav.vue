@@ -6,6 +6,12 @@
     <router-link v-if="loggedIn" to="/dashboard">
       Dashboard
     </router-link>
+    <router-link v-if="loggedIn" to="/event-list">
+      EventList
+    </router-link>
+    <router-link v-if="loggedIn" to="/event-create">
+      EventCreate
+    </router-link>
     <router-link v-if="!loggedIn" to="/login" class="button">
       Login
     </router-link>
@@ -16,24 +22,22 @@
 </template>
 
 <script>
-import helper from '@/store/helper';
+import { mapGetters } from 'vuex';
 
-const { authComputed } = helper; // TODO import { authComputed } from '@/store/helper'; 가 실패하는 이유는?
 export default {
   computed: {
-    ...authComputed,
+    ...mapGetters({
+      loggedIn: 'user/loggedIn',
+    }),
   },
   methods: {
-    logout() {
-      // TODO async/await으로 바꾸기
-      this.$store
-        .dispatch('logout')
-        .then(() => {
-          this.$router.push('/login');
-        })
-        .catch((error) => {
-          console.log('error:', error);
-        });
+    async logout() {
+      try {
+        await this.$store.dispatch('user/logout');
+        await this.$router.push('/login');
+      } catch (error) {
+        console.log('error:', error);
+      }
     },
   },
 };

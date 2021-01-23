@@ -15,12 +15,13 @@
 </template>
 
 <script>
-import helper from '@/store/helper';
+import { mapGetters } from 'vuex';
 
-const { authComputed } = helper;
 export default {
   computed: {
-    ...authComputed,
+    ...mapGetters({
+      loggedIn: 'user/loggedIn',
+    }),
   },
 };
 </script>
