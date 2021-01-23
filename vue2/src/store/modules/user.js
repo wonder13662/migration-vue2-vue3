@@ -23,13 +23,21 @@ export default {
         commit('SET_USER_DATA', data);
       });
     },
-    login({ commit }, credentials) {
-      return services.user.postLogin(credentials).then(({ data }) => {
+    async login({ commit }, credentials) {
+      try {
+        const response = await services.user.postLogin(credentials);
+        const { data } = response;
         commit('SET_USER_DATA', data);
-      });
+      } catch (error) {
+        console.log(error);
+      }
     },
-    logout({ commit }) {
-      commit('CLEAR_USER_DATA');
+    async logout({ commit }) {
+      try {
+        commit('CLEAR_USER_DATA');
+      } catch (error) {
+        console.log(error);
+      }
     },
     setUser({ commit }, userData) {
       commit('SET_USER_DATA', userData);

@@ -25,16 +25,13 @@ export default {
     }),
   },
   methods: {
-    logout() {
-      // TODO async/await으로 바꾸기
-      this.$store
-        .dispatch('user/logout')
-        .then(() => {
-          this.$router.push('/login');
-        })
-        .catch((error) => {
-          console.log('error:', error);
-        });
+    async logout() {
+      try {
+        await this.$store.dispatch('user/logout');
+        await this.$router.push('/login');
+      } catch (error) {
+        console.log('error:', error);
+      }
     },
   },
 };
