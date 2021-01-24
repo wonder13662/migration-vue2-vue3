@@ -39,7 +39,16 @@ yarn lint
 - 이 Composition API 문법은 추가할 수 있습니다.(This Composition API Syntax is Additive)
 - 기존 Vue2의 Component 문법은 유효합니다.(All previous Component syntax valid)
 - 이 개선된 API는 사용할 수도 있고, 그렇지 않을 수도 있습니다.(This is a more advanced optional syntax)
+[제약사항 - Limitation](https://github.com/vuejs/composition-api#limitations)
+[Vue3 - Composition-api-introduction](https://v3.vuejs.org/guide/composition-api-introduction.html)
+#### 주의사항
+```
+context.root.$store로 접근 가능.
+하지만 context.root는 vue3에서 제공되지 않음
+```
 
+### Sample of Composition-api
+- Events.vue와 EventsWithCompositionApi.vue를 비교해보시면 됩니다. 이 파일은 [Vue3 Compositional API 문서](https://v3.vuejs.org/guide/composition-api-introduction.htm)를 기준으로 작성되었습니다.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

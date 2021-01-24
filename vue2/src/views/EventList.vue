@@ -1,7 +1,7 @@
 <template>
   <div v-if="user && user.user">
     <h1>Events for {{ user.user.name }}</h1>
-    <EventCard v-for="event in event.events" :key="event.id" :event="event"/>
+    <Events :page="page" :perPage="perPage"/>
     <template v-if="page != 1">
       <router-link
         :to="{ name: 'event-list', query: { page: page - 1 } }"
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import EventCard from '@/components/EventCard.vue';
+import Events from '@/components/EventsWithCompositionApi.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'EventList',
   components: {
-    EventCard,
+    Events,
   },
   data() {
     return {
