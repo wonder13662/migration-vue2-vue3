@@ -16,18 +16,6 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/dashboard', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'the_secret_key', err => {
-    if (err) {
-      res.sendStatus(401)
-    } else {
-      res.json({
-        events: events
-      })
-    }
-  })
-})
-
 app.post('/event', verifyToken, async (req, res) => {
   const event = req.body;
 
@@ -54,15 +42,17 @@ app.post('/event', verifyToken, async (req, res) => {
 
 app.get('/events', verifyToken, (req, res) => {
   const { _limit, _page } = req.query;
+  const limit = parseInt(_limit)
+  const page = parseInt(_page)
+
   jwt.verify(req.token, 'the_secret_key', err => {
     if (err) {
-      console.log('server / events / err:', err);
       res.sendStatus(401)
     } else {
       const eventDB = fs.readFileSync('./db/events.json')
       const eventInfo = JSON.parse(eventDB)
-      const begins = _limit * _page
-      const ends = _limit * (_page + 1) + 1
+      const begins = (limit * (page - 1))
+      const ends = (limit * page)
       const totalCount = eventInfo.events.length
 
       res.json({
@@ -126,7 +116,6 @@ app.post('/login', (req, res) => {
   ) {
     const token = jwt.sign({ userInfo }, 'the_secret_key')
     // In a production app, you'll want the secret key to be an environment variable
-    console.log('3-token:', token)
     res.json({
       token,
       email: userInfo.email,
