@@ -22,11 +22,10 @@
 </template>
 
 <script>
-import Events from '@/components/EventsWithCompositionApi.vue';
 import { mapState } from 'vuex';
+import Events from '@/components/Events.vue';
 
 export default {
-  name: 'EventList',
   components: {
     Events,
   },
@@ -34,12 +33,6 @@ export default {
     return {
       perPage: 3,
     };
-  },
-  created() {
-    this.$store.dispatch('event/fetchEvents', {
-      perPage: this.perPage,
-      page: this.page,
-    });
   },
   computed: {
     page() {
@@ -49,6 +42,12 @@ export default {
       return Math.ceil(this.event.eventsTotal / this.perPage);
     },
     ...mapState(['event', 'user']),
+  },
+  created() {
+    this.$store.dispatch('event/fetchEvents', {
+      perPage: this.perPage,
+      page: this.page,
+    });
   },
 };
 </script>

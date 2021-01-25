@@ -11,7 +11,6 @@ import useEventTitleSearch from '@/composables/useEventTitleSearch';
 import { toRefs } from '@vue/composition-api';
 
 export default {
-  name: 'EventsWithCompositionApi',
   components: {
     EventCard,
   },
