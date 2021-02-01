@@ -22,7 +22,7 @@ export default {
     events() {
       return this.event.events;
     },
-    ...mapState(['event', 'user']),
+    ...mapState(['event']),
   },
   watch: {
     perPage: 'getUserEvents', // 1

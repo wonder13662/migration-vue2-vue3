@@ -22,8 +22,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, createNamespacedHelpers } from 'vuex';
 import Events from '@/components/Events.vue';
+
+const { mapActions } = createNamespacedHelpers('event');
 
 export default {
   components: {
@@ -32,19 +34,20 @@ export default {
   data() {
     return {
       perPage: 3,
+      page: parseInt(this.$route.query.page, 10) || 1,
     };
   },
   computed: {
-    page() {
-      return parseInt(this.$route.query.page, 10) || 1;
-    },
     lastPage() {
       return Math.ceil(this.event.eventsTotal / this.perPage);
     },
     ...mapState(['event', 'user']),
   },
+  methods: {
+    ...mapActions(['fetchEvents']),
+  },
   created() {
-    this.$store.dispatch('event/fetchEvents', {
+    this.fetchEvents({
       perPage: this.perPage,
       page: this.page,
     });

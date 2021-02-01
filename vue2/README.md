@@ -52,3 +52,34 @@ context.root.$store로 접근 가능.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Conventions
+### Vuex
+#### 모듈화된 store 객체들의 action 호출 방법
+##### Bad
+```
+    this.$store.dispatch('event/fetchEvents', {
+      perPage: this.perPage,
+      page: this.page,
+    });
+```
+##### Good
+```
+import { createNamespacedHelpers } from 'vuex';
+// TODO 2개 이상의 Store 모듈을 받아서 쓰는 방법은?
+const { mapActions } = createNamespacedHelpers('event');
+
+export default {
+   // ...
+   created() {
+      this.fetchEvents({
+         perPage: this.perPage,
+         page: this.page,
+      });
+   },
+   methods: {
+      ...mapActions(['fetchEvents']),
+   },
+   // ...
+}
+```
