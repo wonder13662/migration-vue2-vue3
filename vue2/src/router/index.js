@@ -41,6 +41,15 @@ const router = new VueRouter({
       path: '/event-list-with-composition-api',
       name: 'event-list-with-composition-api',
       component: EventListWithCompositionApi,
+      props: (route) => {
+        const { page } = route.query;
+
+        return {
+          query: {
+            page: page ? parseInt(page, 10) : 1,
+          },
+        };
+      },
       meta: {
         requiresAuth: true,
       },
