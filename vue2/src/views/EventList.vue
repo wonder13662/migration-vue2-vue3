@@ -25,7 +25,7 @@
 import { mapState, createNamespacedHelpers } from 'vuex';
 import Events from '@/components/Events.vue';
 
-const { mapActions } = createNamespacedHelpers('event');
+const { mapActions: mapEventActions } = createNamespacedHelpers('event');
 
 export default {
   components: {
@@ -44,7 +44,7 @@ export default {
     ...mapState(['event', 'user']),
   },
   methods: {
-    ...mapActions(['fetchEvents']),
+    ...mapEventActions(['fetchEvents']),
   },
   created() {
     this.fetchEvents({
