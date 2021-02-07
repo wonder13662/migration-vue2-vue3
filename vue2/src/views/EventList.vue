@@ -46,7 +46,7 @@ export default {
   methods: {
     ...mapEventActions(['fetchEvents']),
   },
-  created() {
+  mounted() {
     this.fetchEvents({
       perPage: this.perPage,
       page: this.page,
