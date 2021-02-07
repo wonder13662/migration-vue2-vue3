@@ -24,6 +24,7 @@
 <script>
 import {
   ref,
+  onMounted,
 } from '@vue/composition-api';
 import Events from '@/components/EventsWithCompositionApi.vue';
 import useUserEvents from '@/composables/useUserEvents';
@@ -44,7 +45,9 @@ export default {
   setup(props) {
     const page = ref(props.query.page);
     const perPage = ref(3);
-    const { lastPage } = useUserEvents(perPage, page);
+    const { lastPage, getUserEvents } = useUserEvents(perPage, page);
+
+    onMounted(getUserEvents);
 
     return {
       page,
