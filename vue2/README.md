@@ -57,20 +57,26 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Vuex
 #### 모듈화된 store 객체들의 action 호출 방법
 ##### Bad
-```
-    this.$store.dispatch('event/fetchEvents', {
-      perPage: this.perPage,
-      page: this.page,
-    });
+```js
+export default {
+   // ...
+   mounted() {
+      this.$store.dispatch('event/fetchEvents', {
+         perPage: this.perPage,
+         page: this.page,
+      });
+   },
+   // ...
+}
 ```
 ##### Good
-```
+```js
 import { createNamespacedHelpers } from 'vuex';
 const { mapActions: mapEventActions } = createNamespacedHelpers('event');
 
 export default {
    // ...
-   created() {
+   mounted() {
       this.fetchEvents({
          perPage: this.perPage,
          page: this.page,
