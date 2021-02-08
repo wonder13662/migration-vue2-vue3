@@ -66,8 +66,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ##### Good
 ```
 import { createNamespacedHelpers } from 'vuex';
-// TODO 2개 이상의 Store 모듈을 받아서 쓰는 방법은?
-const { mapActions } = createNamespacedHelpers('event');
+const { mapActions: mapEventActions } = createNamespacedHelpers('event');
 
 export default {
    // ...
@@ -78,7 +77,7 @@ export default {
       });
    },
    methods: {
-      ...mapActions(['fetchEvents']),
+      ...mapEventActions(['fetchEvents']),
    },
    // ...
 }
