@@ -34,7 +34,6 @@ export default {
   components: {
     Events,
   },
-  // FIX ME Vue2에서는 Router에서 전달한 props 정보는 setup에서 직접 받을 수 없습니다.
   // props를 선언하고 받을 parameter를 정의해야 setup에서 참조할 수 있습니다.
   props: {
     query: {
