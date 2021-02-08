@@ -25,7 +25,9 @@ export default {
     ...mapState(['event']),
   },
   watch: {
+    // TODO 코드 구현 필요
     perPage: 'getUserEvents', // 1
+    // TODO 코드 구현 필요
     page: 'getUserEvents', // 1
   },
 };
