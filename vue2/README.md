@@ -82,3 +82,40 @@ export default {
    // ...
 }
 ```
+### Vue Lifecycle
+#### $refs 참조는 mounted() 또는 setup에서는 onMounted()
+- mounted() 안에서 참조하는 것을 권장
+- created()는 $refs 참조를 하려고 할 경우는 `this.$nextTick()`을 사용해야 함
+
+##### Bad
+```html
+<template>
+   <input type="text" ref="myInput">
+</template>
+
+<script>
+import Vue from 'vue';
+
+export default {
+  created() {
+    Vue.nextTick(() => {
+      this.$refs.myInput.focus();
+    });
+  },
+};
+</script>
+```
+##### Good
+```html
+<template>
+   <input type="text" ref="myInput">
+</template>
+
+<script>
+export default {
+  mounted() {
+   this.$refs.myInput.focus();
+  },
+};
+</script>
+```
