@@ -1,39 +1,34 @@
+<template>
+  <div>
+    <EventCard v-for="event in events" :key="event.id" :event="event"/>
+  </div>
+</template>
+
 <script>
+import { mapState } from 'vuex';
+import EventCard from '@/components/EventCard.vue';
+
 export default {
-  props: {
-    user: {
-      type: String,
-      required: true,
-    }
-  },
-  data() {
-    return {
-      events: [], // 1
-      filters: {}, // 3
-      searchQuery: '' // 2
-    };
+  components: {
+    EventCard,
   },
   computed: {
-    filteredEvents () { // 3
+    filteredEvents() { // 3
       return [];
     },
-    eventsMatchingSearchQuery () { // 2
+    eventsMatchingSearchQuery() { // 2
       return [];
     },
+    events() {
+      return this.event.events;
+    },
+    ...mapState(['event']),
   },
   watch: {
-    user: 'getUserEvents', // 1
+    // TODO 코드 구현 필요
+    perPage: 'getUserEvents', // 1
+    // TODO 코드 구현 필요
+    page: 'getUserEvents', // 1
   },
-  methods: {
-    getUserEvents () { // 1
-      // using `this.user` to fetch user events
-    },
-    updateFilters () { // 3
-
-    }
-  },
-  mounted () {
-    this.getUserEvents(); // 1
-  }
-}
+};
 </script>

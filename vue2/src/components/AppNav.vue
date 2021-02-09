@@ -6,6 +6,9 @@
     <router-link v-if="loggedIn" to="/event-list">
       EventList
     </router-link>
+    <router-link v-if="loggedIn" to="/event-list-with-composition-api">
+      EventList with composition api
+    </router-link>
     <router-link v-if="loggedIn" to="/event-create">
       EventCreate
     </router-link>

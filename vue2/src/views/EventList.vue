@@ -22,33 +22,35 @@
 </template>
 
 <script>
-import Events from '@/components/EventsWithCompositionApi.vue';
-import { mapState } from 'vuex';
+import { mapState, createNamespacedHelpers } from 'vuex';
+import Events from '@/components/Events.vue';
+
+const { mapActions: mapEventActions } = createNamespacedHelpers('event');
 
 export default {
-  name: 'EventList',
   components: {
     Events,
   },
   data() {
     return {
       perPage: 3,
+      page: parseInt(this.$route.query.page, 10) || 1,
     };
   },
-  created() {
-    this.$store.dispatch('event/fetchEvents', {
-      perPage: this.perPage,
-      page: this.page,
-    });
-  },
   computed: {
-    page() {
-      return parseInt(this.$route.query.page, 10) || 1;
-    },
     lastPage() {
       return Math.ceil(this.event.eventsTotal / this.perPage);
     },
     ...mapState(['event', 'user']),
+  },
+  methods: {
+    ...mapEventActions(['fetchEvents']),
+  },
+  mounted() {
+    this.fetchEvents({
+      perPage: this.perPage,
+      page: this.page,
+    });
   },
 };
 </script>

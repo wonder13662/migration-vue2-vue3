@@ -8,10 +8,11 @@
 import EventCard from '@/components/EventCard.vue';
 import useUserEvents from '@/composables/useUserEvents';
 import useEventTitleSearch from '@/composables/useEventTitleSearch';
-import { toRefs } from '@vue/composition-api';
+import {
+  toRefs,
+} from '@vue/composition-api';
 
 export default {
-  name: 'EventsWithCompositionApi',
   components: {
     EventCard,
   },
@@ -26,13 +27,12 @@ export default {
     },
   },
   setup(props) {
-    const { page, perPage } = toRefs(props);
-    const { events, getUserEvents } = useUserEvents(perPage, page);
+    const { perPage, page } = toRefs(props);
+    const { events } = useUserEvents(perPage, page);
     const { searchQuery, eventMatchingSearchQuery } = useEventTitleSearch(events);
 
     return {
       events: eventMatchingSearchQuery,
-      getUserEvents,
       searchQuery,
     };
   },

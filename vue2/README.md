@@ -52,3 +52,76 @@ context.root.$store로 접근 가능.
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Conventions
+### Vuex
+#### 모듈화된 store 객체들의 action 호출 방법
+##### Bad
+```js
+export default {
+   // ...
+   mounted() {
+      this.$store.dispatch('event/fetchEvents', {
+         perPage: this.perPage,
+         page: this.page,
+      });
+   },
+   // ...
+}
+```
+##### Good
+```js
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions: mapEventActions } = createNamespacedHelpers('event');
+
+export default {
+   // ...
+   mounted() {
+      this.fetchEvents({
+         perPage: this.perPage,
+         page: this.page,
+      });
+   },
+   methods: {
+      ...mapEventActions(['fetchEvents']),
+   },
+   // ...
+}
+```
+### Vue Lifecycle
+#### $refs 참조는 mounted() 또는 setup에서는 onMounted()
+- mounted() 안에서 참조하는 것을 권장
+- created()는 $refs 참조를 하려고 할 경우는 `this.$nextTick()`을 사용해야 함
+
+##### Bad
+```html
+<template>
+   <input type="text" ref="myInput">
+</template>
+
+<script>
+import Vue from 'vue';
+
+export default {
+  created() {
+    Vue.nextTick(() => {
+      this.$refs.myInput.focus();
+    });
+  },
+};
+</script>
+```
+##### Good
+```html
+<template>
+   <input type="text" ref="myInput">
+</template>
+
+<script>
+export default {
+  mounted() {
+   this.$refs.myInput.focus();
+  },
+};
+</script>
+```
