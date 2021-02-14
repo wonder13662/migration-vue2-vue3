@@ -34,7 +34,6 @@ export default {
   components: {
     Events,
   },
-  // props를 선언하고 받을 parameter를 정의해야 setup에서 참조할 수 있습니다.
   props: {
     query: {
       type: Object,
