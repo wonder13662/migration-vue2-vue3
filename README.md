@@ -1,8 +1,31 @@
-# vue2
+# Vue2
 
 ## Project setup
 ```
-yarn install
+yarn
+```
+
+### Compiles and hot-reloads for development
+```
+yarn start
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### API Endpoint
+- Axios
+
+### 환경변수
+- TODO
+
+# Vue2 + CompositionApi
+
+## Project setup
+```
+yarn
 ```
 
 ### Compiles and hot-reloads for development
@@ -54,8 +77,41 @@ context.root.$store로 접근 가능.
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Conventions
+### Router
+- Path Route만 사용합니다. Named Route는 관리포인트를 줄이기 위해 사용하지 않습니다.
+##### Bad
+```js
+const router = new VueRouter({
+   routes: [
+      {
+         name: 'home', // 1. Named Route만 사용하는 경우
+         component: Home,
+      },
+      {
+         path: '/register', // 2. Path Route, Named Route를 같이 쓰는 경우
+         name: 'register',
+         component: RegisterUser,
+      },
+   ],
+});
+```
+##### Good
+```js
+const router = new VueRouter({
+   routes: [
+      {
+         path: '/',
+         component: Home,
+      },
+      {
+         path: '/register',
+         component: RegisterUser,
+      },
+   ],
+});
+```
 ### Vuex
-#### 모듈화된 store 객체들의 action 호출 방법
+- 모듈화된 store 객체들의 action 호출 방법
 ##### Bad
 ```js
 export default {
