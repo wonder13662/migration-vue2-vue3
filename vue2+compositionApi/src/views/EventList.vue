@@ -22,35 +22,40 @@
 </template>
 
 <script>
-import { mapState, createNamespacedHelpers } from 'vuex';
+import {
+  ref,
+  onMounted,
+} from '@vue/composition-api';
 import Events from '@/components/Events.vue';
-
-const { mapActions: mapEventActions } = createNamespacedHelpers('event');
+import useUserEvents from '@/composables/useUserEvents';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     Events,
   },
-  data() {
+  // props를 선언하고 받을 parameter를 정의해야 setup에서 참조할 수 있습니다.
+  props: {
+    query: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    const page = ref(props.query.page);
+    const perPage = ref(3);
+    const { lastPage, getUserEvents } = useUserEvents(perPage, page);
+
+    onMounted(getUserEvents);
+
     return {
-      perPage: 3,
-      page: parseInt(this.$route.query.page, 10) || 1,
+      page,
+      perPage,
+      lastPage,
     };
   },
   computed: {
-    lastPage() {
-      return Math.ceil(this.event.eventsTotal / this.perPage);
-    },
-    ...mapState(['event', 'user']),
-  },
-  methods: {
-    ...mapEventActions(['fetchEvents']),
-  },
-  mounted() {
-    this.fetchEvents({
-      perPage: this.perPage,
-      page: this.page,
-    });
+    ...mapState(['user']),
   },
 };
 </script>
