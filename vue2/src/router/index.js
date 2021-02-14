@@ -32,6 +32,15 @@ const router = new VueRouter({
       path: '/event-list',
       name: 'event-list',
       component: EventList,
+      props: (route) => {
+        const { page } = route.query;
+
+        return {
+          query: {
+            page: page ? parseInt(page, 10) : 1,
+          },
+        };
+      },
       meta: {
         requiresAuth: true,
       },

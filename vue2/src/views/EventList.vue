@@ -31,10 +31,16 @@ export default {
   components: {
     Events,
   },
+  props: {
+    query: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       perPage: 3,
-      page: parseInt(this.$route.query.page, 10) || 1,
+      page: parseInt(this.query.page, 10) || 1,
     };
   },
   computed: {
