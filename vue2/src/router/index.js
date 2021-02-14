@@ -5,7 +5,6 @@ import RegisterUser from '@/views/RegisterUser.vue';
 import LoginUser from '@/views/LoginUser.vue';
 import EventCreate from '@/views/EventCreate.vue';
 import EventList from '@/views/EventList.vue';
-import EventListWithCompositionApi from '@/views/EventListWithCompositionApi.vue';
 import EventShow from '@/views/EventShow.vue';
 
 Vue.use(VueRouter);
@@ -33,23 +32,6 @@ const router = new VueRouter({
       path: '/event-list',
       name: 'event-list',
       component: EventList,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/event-list-with-composition-api',
-      name: 'event-list-with-composition-api',
-      component: EventListWithCompositionApi,
-      props: (route) => {
-        const { page } = route.query;
-
-        return {
-          query: {
-            page: page ? parseInt(page, 10) : 1,
-          },
-        };
-      },
       meta: {
         requiresAuth: true,
       },
