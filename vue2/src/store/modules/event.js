@@ -45,8 +45,9 @@ export default {
     },
     async fetchEvents({ commit, dispatch }, { perPage, page }) {
       try {
-        const response = await services.event.getEvents(perPage, page);
-        const { data: { events, totalCount } } = response;
+        const response = await services.event.fetchEvents(perPage, page);
+        const { events, totalCount } = response;
+
         commit('SET_EVENTS', events);
         commit('SET_EVENT_TOTAL', totalCount);
       } catch (error) {
@@ -57,23 +58,17 @@ export default {
         dispatch('notification/add', notification, { root: true });
       }
     },
-    fetchEvent({ commit, getters, dispatch }, id) {
-      const event = getters.getEventById(id);
-      if (event) {
+    async fetchEvent({ commit, dispatch }, id) {
+      try {
+        const response = await services.event.fetchEvent(id);
+        const { event } = response;
         commit('SET_EVENT', event);
-      } else {
-        // TODO async/await 구문으로 바꾸기
-        services.event.getEvent(id)
-          .then((response) => {
-            commit('SET_EVENT', response.data);
-          })
-          .catch((error) => {
-            const notification = {
-              type: 'error',
-              message: `There was a problem fetching event: ${error.message}`,
-            };
-            dispatch('notification/add', notification, { root: true });
-          });
+      } catch (error) {
+        const notification = {
+          type: 'error',
+          message: `There was a problem fetching event: ${error.message}`,
+        };
+        dispatch('notification/add', notification, { root: true });
       }
     },
   },

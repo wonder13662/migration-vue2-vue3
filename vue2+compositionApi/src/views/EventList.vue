@@ -4,7 +4,7 @@
     <Events :page="page" :perPage="perPage"/>
     <template v-if="page != 1">
       <router-link
-        :to="{ name: 'event-list', query: { page: page - 1 } }"
+        :to="{ path: '/event-list', query: { page: page - 1 } }"
         rel="prev"
       >
         Prev Page
@@ -12,7 +12,7 @@
     </template>
     <template v-if="page < lastPage">
       <router-link
-        :to="{ name: 'event-list', query: { page: page + 1 } }"
+        :to="{ path: '/event-list', query: { page: page + 1 } }"
         rel="next"
       >
         Next Page

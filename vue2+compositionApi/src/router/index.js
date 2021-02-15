@@ -15,22 +15,18 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
       component: Home,
     },
     {
       path: '/register',
-      name: 'register',
       component: RegisterUser,
     },
     {
       path: '/login',
-      name: 'login',
       component: LoginUser,
     },
     {
       path: '/event-list',
-      name: 'event-list',
       component: EventList,
       props: (route) => {
         const { page } = route.query;
@@ -47,7 +43,6 @@ const router = new VueRouter({
     },
     {
       path: '/event-create',
-      name: 'event-create',
       component: EventCreate,
       meta: {
         requiresAuth: true,
@@ -55,7 +50,6 @@ const router = new VueRouter({
     },
     {
       path: '/event/:id',
-      name: 'event-show',
       component: EventShow,
       meta: {
         requiresAuth: true,

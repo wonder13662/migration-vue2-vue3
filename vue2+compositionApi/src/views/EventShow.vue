@@ -21,17 +21,29 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import {
+  ref,
+  onMounted,
+} from '@vue/composition-api';
+import useUserEvent from '@/composables/useUserEvent';
 
 export default {
-  props: ['id'],
-  created() {
-    this.fetchEvent(this.id);
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
   },
-  computed: mapState({
-    event: (state) => state.event.event,
-  }),
-  methods: mapActions('event', ['fetchEvent']),
+  setup(props) {
+    const id = ref(props.id);
+    const { event, getUserEvent } = useUserEvent(id);
+
+    onMounted(getUserEvent);
+
+    return {
+      event,
+    };
+  },
 };
 </script>
 

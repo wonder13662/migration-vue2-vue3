@@ -40,6 +40,24 @@ app.post('/event', verifyToken, async (req, res) => {
   }
 })
 
+app.get('/event/:id', verifyToken, (req, res) => {
+  const { id } = req.params;
+
+  jwt.verify(req.token, 'the_secret_key', err => {
+    if (err) {
+      res.sendStatus(401)
+    } else {
+      const eventDB = fs.readFileSync('./db/events.json')
+      const eventInfo = JSON.parse(eventDB)
+      const event = eventInfo.events.find(event => `${event.id}` === `${id}`)
+
+      res.json({
+        event,
+      })
+    }
+  })
+})
+
 app.get('/events', verifyToken, (req, res) => {
   const { _limit, _page } = req.query;
   const limit = parseInt(_limit)

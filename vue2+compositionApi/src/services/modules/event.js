@@ -1,7 +1,4 @@
 export default {
-  getEvents(apiClient, perPage = 3, page = 1) {
-    return apiClient.get(`/events?_limit=${perPage}&_page=${page}`);
-  },
   async fetchEvents(apiClient, perPage = 3, page = 1) {
     let response = null;
     try {
@@ -22,8 +19,18 @@ export default {
 
     return { events, totalCount };
   },
-  getEvent(apiClient, id) {
-    return apiClient.get(`/events/${id}`);
+  async fetchEvent(apiClient, id) {
+    let response = null;
+    try {
+      response = await apiClient.get(`/event/${id}`);
+      if (!response || !response.data || !response.data.event) {
+        throw new Error('response is not valid!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    return { event: response.data.event };
   },
   postEvent(apiClient, event) {
     return apiClient.post('/event', event);
