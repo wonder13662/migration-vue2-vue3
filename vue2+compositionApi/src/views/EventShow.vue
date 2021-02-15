@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <div class="event-header">
+      <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
+      <h1 class="title">{{ event.title }}</h1>
+      <h5>Organized by {{ event.organizer ? event.organizer.name : '' }}</h5>
+      <h5>Category: {{ event.category }}</h5>
+    </div>
+    <address>{{ event.location }}</address>
+    <h2>Event details</h2>
+    <p>{{ event.description }}</p>
+    <h2>Attendees
+      <span class="badge -fill-gradient">{{ event.attendees? event.attendees.length: 0 }}</span>
+    </h2>
+    <ul class="list-group">
+      <li v-for="(attendee, index) in event.attendees" :key="index" class="list-item">
+        <b>{{ attendee.name }}</b>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import {
+  ref,
+  onMounted,
+} from '@vue/composition-api';
+import useUserEvent from '@/composables/useUserEvent';
+
+export default {
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const id = ref(props.id);
+    const { event, getUserEvent } = useUserEvent(id);
+
+    onMounted(getUserEvent);
+
+    return {
+      event,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.location {
+  margin-bottom: 0;
+}
+.location > .icon {
+  margin-left: 10px;
+}
+.event-header > .title {
+  margin: 0;
+}
+.list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.list-group > .list-item {
+  padding: 1em 0;
+  border-bottom: solid 1px #e5e5e5;
+}
+</style>

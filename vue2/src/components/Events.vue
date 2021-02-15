@@ -13,22 +13,16 @@ export default {
     EventCard,
   },
   computed: {
-    filteredEvents() { // 3
+    filteredEvents() { // 3 - TODO 구현 필요
       return [];
     },
-    eventsMatchingSearchQuery() { // 2
+    eventsMatchingSearchQuery() { // 2 - TODO 구현 필요
       return [];
     },
     events() {
-      return this.event.events;
+      return this.event.events; // TODO Vuex의 데이터가 업데이트되었을 때 가져오는 방법은?
     },
     ...mapState(['event']),
-  },
-  watch: {
-    // TODO 코드 구현 필요
-    perPage: 'getUserEvents', // 1
-    // TODO 코드 구현 필요
-    page: 'getUserEvents', // 1
   },
 };
 </script>

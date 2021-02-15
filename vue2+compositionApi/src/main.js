@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Vue from 'vue';
+import componentApi from './componentApi';
 import store from './store';
 import router from './router';
 import App from './App.vue';
@@ -7,6 +8,7 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 
 new Vue({
+  componentApi,
   store,
   router,
   created() {
