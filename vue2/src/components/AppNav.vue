@@ -9,6 +9,9 @@
     <router-link v-if="loggedIn" to="/event-create">
       EventCreate
     </router-link>
+    <router-link v-if="loggedIn" to="/apollo">
+      Apollo Example
+    </router-link>
     <router-link v-if="!loggedIn" to="/login" class="button">
       Login
     </router-link>

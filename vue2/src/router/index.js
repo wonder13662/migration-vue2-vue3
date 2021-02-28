@@ -6,6 +6,7 @@ import LoginUser from '@/views/LoginUser.vue';
 import EventCreate from '@/views/EventCreate.vue';
 import EventList from '@/views/EventList.vue';
 import EventShow from '@/views/EventShow.vue';
+import Apollo from '@/views/Apollo.vue';
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,13 @@ const router = new VueRouter({
         requiresAuth: true,
       },
       props: true,
+    },
+    {
+      path: '/apollo',
+      component: Apollo,
+      meta: {
+        requiresAuth: true,
+      },
     },
   ],
 });

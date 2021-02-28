@@ -3,12 +3,14 @@ import Vue from 'vue';
 import store from './store';
 import router from './router';
 import App from './App.vue';
+import { createProvider } from './vue-apollo';
 
 Vue.config.productionTip = false;
 
 new Vue({
   store,
   router,
+
   created() {
     const userString = localStorage.getItem('user');
     if (userString) {
@@ -27,5 +29,7 @@ new Vue({
       },
     );
   },
+
+  apolloProvider: createProvider(),
   render: (h) => h(App),
 }).$mount('#app');
