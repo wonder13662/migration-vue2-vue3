@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "apollo": "vue-cli-service apollo:dev --generate-schema",
     "apollo:schema:generate": "vue-cli-service apollo:schema:generate",
     "apollo:schema:publish": "vue-cli-service apollo:schema:publish",
     "apollo:start": "vue-cli-service apollo:start",
-    "start": "npx nodemon server.js & vue-cli-service serve"
+    "start": "npx nodemon server.js & vue-cli-service apollo:start & vue-cli-service serve --mode local"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.11",
     "@vue/composition-api": "^1.0.0-rc.1",
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
@@ -49,7 +50,7 @@
     "vue-template-compiler": "^2.6.11"
   },
   "resolutions": {
-    "**/**/fs-capacitor":"^6.2.0",
+    "**/**/fs-capacitor": "^6.2.0",
     "**/graphql-upload": "^11.0.0"
   }
 }

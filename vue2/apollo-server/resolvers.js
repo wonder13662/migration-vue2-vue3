@@ -11,7 +11,15 @@ export default {
 
 
   Query: {
-    hello: (root, { name }) => `Hello ${name || 'World'}!`,
+    hello: async (root, { name }) => {
+      const promise = new Promise((resolve, reject) => {
+        setTimeout(function(){
+          resolve(`Hello ${name || 'World'}!`);
+        }, 5000);
+      })
+      const result = await promise;
+      return result
+    },
     messages: (root, args, { db }) => db.get('messages').value(),
     uploads: (root, args, { db }) => db.get('uploads').value(),
 

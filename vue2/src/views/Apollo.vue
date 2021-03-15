@@ -1,13 +1,23 @@
 <template>
-  <ApolloExample/>
+  <div>
+    <VueApolloComponentExample v-if="toggle"/>
+    <ApolloClientExample v-if="!toggle"/>
+  </div>
 </template>
 
 <script>
-import ApolloExample from '@/components/ApolloExample.vue';
+import VueApolloComponentExample from '@/components/VueApolloComponentExample.vue';
+import ApolloClientExample from '@/components/ApolloClientExample.vue';
 
 export default {
+  data() {
+    return {
+      toggle: false,
+    };
+  },
   components: {
-    ApolloExample,
+    VueApolloComponentExample,
+    ApolloClientExample,
   },
 };
 </script>

@@ -25,7 +25,7 @@ export default {
     createEvent({ commit, dispatch }, event) {
       // TODO rootState 예제 만들기
       // TODO dispatch('moduleName/actionToCall', null, { root:true }) 예제 만들기
-      return services.event.postEvent(event)
+      return services.rest.event.postEvent(event)
         .then(() => {
           commit('ADD_EVENT', event);
           const notification = {
@@ -45,7 +45,7 @@ export default {
     },
     async fetchEvents({ commit, dispatch }, { perPage, page }) {
       try {
-        const response = await services.event.fetchEvents(perPage, page);
+        const response = await services.rest.event.fetchEvents(perPage, page);
         const { events, totalCount } = response;
 
         commit('SET_EVENTS', events);
@@ -60,7 +60,7 @@ export default {
     },
     async fetchEvent({ commit, dispatch }, id) {
       try {
-        const response = await services.event.fetchEvent(id);
+        const response = await services.rest.event.fetchEvent(id);
         const { event } = response;
         commit('SET_EVENT', event);
       } catch (error) {
