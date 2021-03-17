@@ -13,9 +13,13 @@ export default {
 
     return result;
   },
-  subscribe() {
+  counter({ next, error, complete }) {
     return apolloClient.subscribe({
       query: Counter,
+    }).subscribe({
+      next,
+      error,
+      complete,
     });
   },
 };

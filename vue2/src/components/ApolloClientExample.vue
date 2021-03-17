@@ -12,7 +12,7 @@ export default {
   name: 'ApolloClientExample',
   data() {
     return {
-      observable: null,
+      subscription: null,
       hello: '',
     };
   },
@@ -25,14 +25,14 @@ export default {
       console.log('error:', error);
     }
 
-    this.observable = services.graphql.sample.subscribe().subscribe({
+    this.subscription = services.graphql.sample.counter({
       next(x) { console.log('got value ', x.data.counter.countStr); },
       error(err) { console.error(`something wrong occurred:  ${err}`); },
       complete() { console.log('done'); },
     });
   },
   beforeDestroy() {
-    this.observable.unsubscribe();
+    this.subscription.unsubscribe();
   },
 };
 </script>
