@@ -1,5 +1,6 @@
 import apolloClient from '@/services/graphql/apolloClient';
 import HelloWorld from '@/graphql/HelloWorld.gql';
+import Counter from '@/graphql/Counter.gql';
 
 export default {
   async fetch(name = '') {
@@ -11,5 +12,10 @@ export default {
     });
 
     return result;
+  },
+  subscribe() {
+    return apolloClient.subscribe({
+      query: Counter,
+    });
   },
 };

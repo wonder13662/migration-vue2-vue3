@@ -15,7 +15,7 @@ export default {
       const promise = new Promise((resolve, reject) => {
         setTimeout(function(){
           resolve(`Hello ${name || 'World'}!`);
-        }, 5000);
+        }, 10);
       })
       const result = await promise;
       return result

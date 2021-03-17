@@ -12,18 +12,27 @@ export default {
   name: 'ApolloClientExample',
   data() {
     return {
+      observable: null,
       hello: '',
     };
   },
   async created() {
     try {
-      // fetch 요청을 중단하는 것은 AbortController를 사용하면 가능(Experimental feature)
-      // destroyed 이후에도 this 및 data의 속성 접근이 가능하다.
       const result = await services.graphql.sample.fetch('Jessy');
+      console.log('query / result:', result);
       this.hello = result.data.hello;
     } catch (error) {
       console.log('error:', error);
     }
+
+    this.observable = services.graphql.sample.subscribe().subscribe({
+      next(x) { console.log('got value ', x.data.counter.countStr); },
+      error(err) { console.error(`something wrong occurred:  ${err}`); },
+      complete() { console.log('done'); },
+    });
+  },
+  beforeDestroy() {
+    this.observable.unsubscribe();
   },
 };
 </script>

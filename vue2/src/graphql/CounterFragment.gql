@@ -1,0 +1,4 @@
+fragment Counter on Counter {
+  count
+  countStr
+}

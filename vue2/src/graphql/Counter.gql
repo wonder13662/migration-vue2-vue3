@@ -1,0 +1,7 @@
+#import "./CounterFragment.gql"
+
+subscription counter {
+  counter {
+    ...Counter
+  }
+}
